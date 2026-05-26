@@ -1,0 +1,52 @@
+---
+import Wordmark from './Wordmark.astro';
+
+const downloadHref = '#download';       // TODO: GitHub Releases latest .dmg
+const githubHref = 'https://github.com/';// TODO: real repo URL
+---
+<section class="relative overflow-hidden">
+  <!-- subtle radial glow behind the headline -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 opacity-50"
+    style="background: radial-gradient(60% 50% at 50% 0%, rgba(61,123,255,0.20) 0%, rgba(18,18,18,0) 70%);"
+  ></div>
+
+  <div class="relative mx-auto max-w-5xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 text-center">
+    <div class="flex justify-center mb-10">
+      <Wordmark size={36} />
+    </div>
+
+    <h1 class="mx-auto max-w-3xl text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05]">
+      Your downloads,<br/>
+      <span class="text-bolt-gradient">at the speed of light.</span>
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-xl text-base sm:text-lg text-neutral-300">
+      A keyboard-first macOS client for TorBox. Free. Bring your own API key.
+    </p>
+
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href={downloadHref}
+        class="inline-flex items-center gap-2 rounded-lg bg-bolt-gradient px-6 py-3 text-base font-semibold text-white shadow-lg shadow-bolt/30 transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 focus:ring-offset-surface-primary"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Download for macOS
+      </a>
+      <a
+        href={githubHref}
+        class="inline-flex items-center gap-2 text-sm font-medium text-neutral-300 hover:text-white transition"
+      >
+        View on GitHub
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <p class="mt-4 text-xs text-neutral-500">
+      Requires macOS 14+ • Apple Silicon
+    </p>
+  </div>
+</section>

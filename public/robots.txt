@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://minch.app/sitemap-index.xml

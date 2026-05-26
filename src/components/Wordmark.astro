@@ -1,0 +1,31 @@
+---
+// Mirrors Packages/MinchUI/Sources/MinchUI/MinchWordmark.swift:
+// SF Symbol bolt.fill + "Minch" semibold, vertical bolt→current gradient on the glyph.
+interface Props {
+  size?: number;        // glyph height in px
+  className?: string;
+}
+const { size = 28, className = '' } = Astro.props;
+const fontSize = Math.round(size * 0.9);
+---
+<span class={`inline-flex items-center gap-2 ${className}`} aria-label="Minch">
+  <svg
+    width={Math.round(size * 0.72)}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
+    <defs>
+      <linearGradient id="wm-bolt" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3D7BFF"/>
+        <stop offset="100%" stop-color="#5BE2F7"/>
+      </linearGradient>
+    </defs>
+    <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" fill="url(#wm-bolt)"/>
+  </svg>
+  <span
+    class="font-semibold tracking-tight text-white"
+    style={`font-size: ${fontSize}px; line-height: 1;`}
+  >Minch</span>
+</span>

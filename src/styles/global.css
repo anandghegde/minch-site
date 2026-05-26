@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #121212;
+    color: #f5f5f5;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+
+  /* Native <details> chevron tweak */
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  .text-bolt-gradient {
+    background: linear-gradient(180deg, #3d7bff 0%, #5be2f7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}

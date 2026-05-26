@@ -1,0 +1,40 @@
+---
+// Native <details>/<summary> — no JS needed.
+const items: { q: string; a: string }[] = [
+  {
+    q: 'Do I need a TorBox account?',
+    a: 'Yes. Minch is a client for <a class="underline hover:text-white" href="https://torbox.app">TorBox</a>. Minch itself is free; TorBox has its own pricing.',
+  },
+  {
+    q: 'Why is Minch free?',
+    a: "Because you've already paid for TorBox. Charging twice for the same workflow felt wrong.",
+  },
+  {
+    q: "Where's the source?",
+    a: 'On <a class="underline hover:text-white" href="https://github.com/">GitHub</a>. Issues, PRs, and forks welcome.',
+  },
+  {
+    q: 'Does it work on Intel Macs?',
+    a: 'Apple Silicon (arm64) today. A universal build is on the roadmap.',
+  },
+];
+---
+<section class="mx-auto max-w-3xl px-6 pb-20">
+  <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight mb-8 text-center">
+    Questions
+  </h2>
+  <div class="divide-y divide-white/5 rounded-xl border border-white/5 bg-surface-elevated/60">
+    {items.map((item) => (
+      <details class="group p-5">
+        <summary class="flex items-center justify-between gap-4 text-base font-medium text-white">
+          <span>{item.q}</span>
+          <span
+            class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-neutral-400 transition group-open:rotate-45"
+            aria-hidden="true"
+          >+</span>
+        </summary>
+        <p class="mt-3 text-sm text-neutral-400 leading-relaxed" set:html={item.a}></p>
+      </details>
+    ))}
+  </div>
+</section>
