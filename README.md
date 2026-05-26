@@ -1,6 +1,6 @@
 # minch-site
 
-Marketing landing page for [Minch](https://github.com/), a free macOS client
+Marketing landing page for [Minch](https://github.com/anandghegde/minch), a free macOS client
 for TorBox. Built with [Astro](https://astro.build) + Tailwind and served as
 static files from a Linode VPS.
 
