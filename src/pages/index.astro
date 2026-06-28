@@ -2,14 +2,30 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import ScreenshotFrame from '../components/ScreenshotFrame.astro';
+import HowItWorks from '../components/HowItWorks.astro';
 import Features from '../components/Features.astro';
+import CommandPalette from '../components/CommandPalette.astro';
+import PrivacyNote from '../components/PrivacyNote.astro';
 import Faq from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 ---
 <Base>
   <Hero />
-  <ScreenshotFrame src="/screenshots/library.png" alt="Minch Library view" />
+  <ScreenshotFrame label="Minch Library view — completed downloads (Linux ISOs and Blender open movies) with progress bars beside a sidebar of smart folders">
+    <img
+      src="/screenshots/library.png"
+      width="2048"
+      height="1215"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      class="block w-full"
+    />
+  </ScreenshotFrame>
+  <HowItWorks />
   <Features />
+  <CommandPalette />
+  <PrivacyNote />
   <Faq />
   <Footer />
 </Base>

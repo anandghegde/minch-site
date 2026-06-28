@@ -7,7 +7,7 @@ export default {
     extend: {
       colors: {
         bolt: '#3D7BFF',     // Color.minchBolt
-        current: '#5BE2F7',  // Color.minchCurrent (Tailwind name overlap — used as text-current-bolt etc. via custom classes; safe here as colors.current)
+        aqua: '#5BE2F7',     // Color.minchCurrent — renamed from `current` to avoid clobbering Tailwind's built-in currentColor keyword (text-current/stroke-current/etc.)
         surface: {
           primary: '#121212',  // minchSurfacePrimary
           elevated: '#191919', // minchSurfaceElevated

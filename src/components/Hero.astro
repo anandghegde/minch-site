@@ -1,8 +1,22 @@
 ---
 import Wordmark from './Wordmark.astro';
+import { DOWNLOAD_PATH, GITHUB_REPO_URL, EVENTS } from '../config';
+import { getDmgDownloadCount } from '../lib/github';
 
-const downloadHref = 'https://github.com/anandghegde/minch/releases/download/v1.0.0/Minch.dmg';
-const githubHref = 'https://github.com/anandghegde/minch';
+// First-party download path (nginx 302 → GitHub .dmg). See docs/analytics-setup.md.
+const downloadHref = DOWNLOAD_PATH;
+const githubHref = GITHUB_REPO_URL;
+
+// Real download count as social proof. Build-time only (skips dev to avoid
+// hammering the GitHub API on every request); hides itself if unavailable.
+// Only surface it once it's meaningful — a tiny number reads as *un*popular,
+// so stay quiet below this floor.
+const MIN_DOWNLOADS_TO_SHOW = 250;
+const downloadCount = import.meta.env.PROD ? await getDmgDownloadCount() : null;
+const downloadCountLabel =
+  downloadCount !== null && downloadCount >= MIN_DOWNLOADS_TO_SHOW
+    ? new Intl.NumberFormat('en-US').format(downloadCount)
+    : null;
 ---
 <section class="relative overflow-hidden">
   <!-- subtle radial glow behind the headline -->
@@ -29,7 +43,8 @@ const githubHref = 'https://github.com/anandghegde/minch';
     <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
       <a
         href={downloadHref}
-        class="inline-flex items-center gap-2 rounded-lg bg-bolt-gradient px-6 py-3 text-base font-semibold text-white shadow-lg shadow-bolt/30 transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 focus:ring-offset-surface-primary"
+        data-umami-event={EVENTS.downloadMacos}
+        class="inline-flex items-center gap-2 rounded-lg bg-bolt-gradient px-6 py-3 text-base font-semibold text-white shadow-lg shadow-bolt/30 transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-aqua focus:ring-offset-2 focus:ring-offset-surface-primary"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -38,6 +53,7 @@ const githubHref = 'https://github.com/anandghegde/minch';
       </a>
       <a
         href={githubHref}
+        data-umami-event={EVENTS.viewGithubHero}
         class="inline-flex items-center gap-2 text-sm font-medium text-neutral-300 hover:text-white transition"
       >
         View on GitHub
@@ -48,5 +64,10 @@ const githubHref = 'https://github.com/anandghegde/minch';
     <p class="mt-4 text-xs text-neutral-500">
       Requires macOS 14+ • Apple Silicon
     </p>
+    {downloadCountLabel && (
+      <p class="mt-2 text-xs text-neutral-500">
+        {downloadCountLabel} downloads and counting
+      </p>
+    )}
   </div>
 </section>

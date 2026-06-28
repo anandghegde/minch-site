@@ -1,5 +1,14 @@
 ---
 import '../styles/global.css';
+import {
+  SITE_URL,
+  DOWNLOAD_PATH,
+  GITHUB_REPO_URL,
+  UMAMI_SRC,
+  UMAMI_WEBSITE_ID,
+  GOOGLE_SITE_VERIFICATION,
+  BING_SITE_VERIFICATION,
+} from '../config';
 
 interface Props {
   title?: string;
@@ -11,8 +20,40 @@ const {
   description = 'A keyboard-first macOS client for TorBox. Free. Bring your own API key.',
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://minch.app').toString();
-const ogImage = new URL('/og-image.png', Astro.site ?? 'https://minch.app').toString();
+const origin = Astro.site ?? new URL(SITE_URL);
+const canonical = new URL(Astro.url.pathname, origin).toString();
+const ogImage = new URL('/og-image.png', origin).toString();
+const ogImageAlt = 'Minch — a keyboard-first macOS client for TorBox';
+
+// Inject the Umami snippet only for production builds (never on `astro dev`)
+// and only once a website ID is configured.
+const umamiEnabled = import.meta.env.PROD && UMAMI_WEBSITE_ID !== '';
+
+// SoftwareApplication structured data (Google rich result eligible via offers).
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Minch',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'macOS',
+  description,
+  url: origin.toString(),
+  downloadUrl: new URL(DOWNLOAD_PATH, origin).toString(),
+  softwareVersion: '1.0.0',
+  screenshot: new URL('/screenshots/library.png', origin).toString(),
+  image: ogImage,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  isAccessibleForFree: true,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Minch',
+    url: GITHUB_REPO_URL,
+  },
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -22,6 +63,7 @@ const ogImage = new URL('/og-image.png', Astro.site ?? 'https://minch.app').toSt
     <meta name="theme-color" content="#121212" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonical} />
 
     <title>{title}</title>
@@ -29,16 +71,47 @@ const ogImage = new URL('/og-image.png', Astro.site ?? 'https://minch.app').toSt
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Minch" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    <!-- Search-engine verification (optional; DNS TXT preferred). Renders only when set. -->
+    {GOOGLE_SITE_VERIFICATION && (
+      <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+    )}
+    {BING_SITE_VERIFICATION && (
+      <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />
+    )}
+
+    <!-- Structured data: SoftwareApplication (rich-result eligible) -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!--
+      Privacy-first analytics: self-hosted Umami. Cookieless, no PII, honors
+      Do-Not-Track (data-do-not-track). Production builds only.
+    -->
+    {umamiEnabled && (
+      <script
+        is:inline
+        defer
+        src={UMAMI_SRC}
+        data-website-id={UMAMI_WEBSITE_ID}
+        data-do-not-track="true"
+      />
+    )}
   </head>
   <body class="bg-surface-primary text-neutral-100 min-h-screen flex flex-col">
     <main class="flex-1">

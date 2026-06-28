@@ -23,3 +23,8 @@ pnpm-debug.log*
 .vscode/
 .idea/
 *.swp
+
+# Local tooling / scratch (not part of the site)
+.serena/
+token-optimizer/
+goal-analytics.md

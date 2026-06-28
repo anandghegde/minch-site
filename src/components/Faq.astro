@@ -1,5 +1,7 @@
 ---
 // Native <details>/<summary> — no JS needed.
+import { GITHUB_REPO_URL, EVENTS } from '../config';
+
 const items: { q: string; a: string }[] = [
   {
     q: 'Do I need a TorBox account?',
@@ -11,7 +13,7 @@ const items: { q: string; a: string }[] = [
   },
   {
     q: "Where's the source?",
-    a: 'On <a class="underline hover:text-white" href="https://github.com/anandghegde/minch">GitHub</a>. Issues, PRs, and forks welcome.',
+    a: `On <a class="underline hover:text-white" href="${GITHUB_REPO_URL}" data-umami-event="${EVENTS.viewGithubFaq}">GitHub</a>. Issues, PRs, and forks welcome.`,
   },
   {
     q: 'Does it work on Intel Macs?',

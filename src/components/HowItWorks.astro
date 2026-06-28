@@ -1,0 +1,34 @@
+---
+// Lightweight "3 steps to running" strip — reduces first-run friction by
+// showing how little setup Minch needs (BYO key, no account).
+const steps: { title: string; body: string }[] = [
+  {
+    title: 'Download Minch',
+    body: 'Free and notarized for Apple Silicon. Nothing to sign up for.',
+  },
+  {
+    title: 'Paste your TorBox key',
+    body: 'Bring your own API key — it lives in your macOS Keychain, not our servers.',
+  },
+  {
+    title: 'Add, stream, or download',
+    body: 'Drop a magnet or .torrent. Play straight from TorBox or pull files local.',
+  },
+];
+---
+<section class="mx-auto max-w-5xl px-6 pb-20">
+  <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight mb-8 text-center">
+    Running in under a minute
+  </h2>
+  <ol class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+    {steps.map((step, i) => (
+      <li class="rounded-xl border border-white/5 bg-surface-elevated/60 p-6">
+        <span class="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-bolt/10 text-sm font-semibold text-bolt">
+          {i + 1}
+        </span>
+        <h3 class="text-base font-semibold text-white">{step.title}</h3>
+        <p class="mt-2 text-sm text-neutral-400 leading-relaxed">{step.body}</p>
+      </li>
+    ))}
+  </ol>
+</section>

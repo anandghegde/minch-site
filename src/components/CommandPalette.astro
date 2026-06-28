@@ -1,0 +1,51 @@
+---
+// Keyboard-first showcase: an HTML/CSS mock of the ⌘K command palette that
+// sells the differentiator the copy leads with. No image asset — crisp at any
+// size and trivial to keep in sync with real shortcuts.
+const kbd =
+  'inline-flex h-5 min-w-[20px] items-center justify-center rounded border border-white/10 bg-white/5 px-1.5 text-[11px] font-medium text-neutral-300';
+
+const commands: { label: string; keys: string[] }[] = [
+  { label: 'Add torrent or magnet…', keys: ['⌘', 'N'] },
+  { label: 'Search library', keys: ['⌘', 'F'] },
+  { label: 'Refresh transfers', keys: ['⌘', 'R'] },
+  { label: 'Download to local library', keys: ['⌘', '⇧', 'D'] },
+  { label: 'Stream from TorBox', keys: ['Space'] },
+];
+---
+<section class="mx-auto max-w-5xl px-6 pb-20">
+  <div class="grid items-center gap-10 lg:grid-cols-2">
+    <div>
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+        Built for the keyboard
+      </h2>
+      <p class="mt-4 max-w-md text-base text-neutral-300 leading-relaxed">
+        Hit <kbd class={kbd}>⌘</kbd> <kbd class={kbd}>K</kbd> and run anything —
+        add, search, stream, download — without reaching for the mouse. Every
+        action has a shortcut, and the command palette remembers what you use.
+      </p>
+    </div>
+
+    <div class="overflow-hidden rounded-xl border border-white/10 bg-surface-elevated shadow-2xl shadow-black/60">
+      <div class="flex items-center gap-3 border-b border-white/5 px-4 py-3">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="text-neutral-500" aria-hidden="true">
+          <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="text-sm text-neutral-400">Type a command or search…</span>
+        <span class="ml-auto flex items-center gap-1">
+          <kbd class={kbd}>⌘</kbd><kbd class={kbd}>K</kbd>
+        </span>
+      </div>
+      <ul class="p-2">
+        {commands.map((cmd, i) => (
+          <li class={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm ${i === 0 ? 'bg-bolt/15 text-white' : 'text-neutral-300'}`}>
+            <span>{cmd.label}</span>
+            <span class="flex items-center gap-1">
+              {cmd.keys.map((key) => <kbd class={kbd}>{key}</kbd>)}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

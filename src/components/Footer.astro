@@ -1,11 +1,12 @@
 ---
+import { GITHUB_REPO_URL, EVENTS } from '../config';
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-white/5">
   <div class="mx-auto max-w-5xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
     <span>© {year} Minch</span>
     <div class="flex items-center gap-5">
-      <a href="https://github.com/anandghegde/minch" class="hover:text-white transition">GitHub</a>
+      <a href={GITHUB_REPO_URL} data-umami-event={EVENTS.viewGithubFooter} class="hover:text-white transition">GitHub</a>
       <span>Not affiliated with TorBox.</span>
     </div>
   </div>
